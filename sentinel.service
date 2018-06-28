@@ -1,0 +1,16 @@
+[Unit]
+Description=Redis persistent key-value database
+After=network.target
+After=syslog.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+User=redis
+Group=redis
+ExecStart=/usr/local/redis/bin/redis-sentinel /usr/local/redis/sentinel.conf
+ExecStop=/usr/local/redis/bin/redis-cli -a redis123 -h 127.0.0.1 -p 26379 shutdown
+Restart=always
+Type=forking
+LimitNOFILE=65535
