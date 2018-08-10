@@ -1,0 +1,17 @@
+[Unit]
+Description=ZooKeeper
+After=syslog.target network.target
+
+[Service]
+Type=forking
+Environment=ZOO_LOG_DIR=/mydata/zookeeper/logs
+Environment=JAVA_HOME=/usr/local/jdk1.8.0
+ExecStart=/usr/local/zookeeper/bin/zkServer.sh start
+ExecStop=/usr/local/zookeeper/bin/zkServer.sh stop
+Restart=always
+User=zookeeper
+Group=zookeeper
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
